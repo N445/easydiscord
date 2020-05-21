@@ -1,0 +1,27 @@
+{
+  "name": "N445/easydiscord",
+  "description": "Easy Discord",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "keywords": [
+    "Discord",
+    "N445"
+  ],
+  "homepage": "git@github.com:N445/easydiscord.gitgit@github.com:N445/easydiscord.git",
+  "authors": [
+    {
+      "name": "N445",
+      "email": "parisrob@hotmail.fr",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "eightpoints/guzzle-bundle": "^8.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "N445\\EasyDiscord\\": "src"
+    }
+  },
+  "minimum-stability": "stable"
+}
