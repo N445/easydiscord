@@ -22,5 +22,10 @@
       "N445\\EasyDiscord\\": "src"
     }
   },
-  "minimum-stability": "stable"
+  "minimum-stability": "stable",
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.2"
+    }
+  }
 }
