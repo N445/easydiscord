@@ -30,3 +30,8 @@ class AppKernel extends Kernel
     // ...
 }
 ```
+
+### Doc
+
+https://discord.com/developers/docs/resources/webhook#execute-webhook
+https://discord.com/developers/docs/resources/channel#embed-object
