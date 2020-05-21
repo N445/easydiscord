@@ -21,5 +21,6 @@
     "psr-4": {
       "N445\\EasyDiscord\\": "src"
     }
-  }
+  },
+  "minimum-stability": "stable"
 }

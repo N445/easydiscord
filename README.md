@@ -3,24 +3,7 @@ Installation
 
 ### Step 1: Download the Bundle
 
-Edit your `package.json` file in your root dir
-
-```json
-{
-  "repositories": [
-    {
-      "name": "N445/easydiscord",
-      "type": "vcs",
-      "url": "git@github.com:N445/easydiscord.gitgit@github.com:N445/easydiscord.git"
-    }
-  ],
-  "require": {
-    // ...
-    "N445/easydiscord": "dev-master",
-    // ...
-  }
-}
-```
+`composer require n445/easydiscord`
 
 ### Step 2: Enable the Bundle
 
@@ -38,7 +21,7 @@ class AppKernel extends Kernel
     {
         $bundles = [
             // ...
-            new N445\EasyDiscord\OzXXXX(),
+            new N445\EasyDiscord\N445EasyDiscordBundle(),
         ];
 
         // ...
@@ -47,7 +30,3 @@ class AppKernel extends Kernel
     // ...
 }
 ```
-
-### Step 3 Edit sample file
-
-replace "XXXX" by your bundle name in readme.md, composer.json and rename OzXXXXBundle + namespace

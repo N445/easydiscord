@@ -9,6 +9,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  *
  * @package Oz\EasyDiscord
  */
-class OzEasyDiscordBundle extends Bundle
+class N445EasyDiscordBundle extends Bundle
 {
 }
