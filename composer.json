@@ -1,5 +1,5 @@
 {
-  "name": "N445/easydiscord",
+  "name": "n445/easydiscord",
   "description": "Easy Discord",
   "type": "symfony-bundle",
   "license": "MIT",
@@ -7,7 +7,7 @@
     "Discord",
     "N445"
   ],
-  "homepage": "git@github.com:N445/easydiscord.gitgit@github.com:N445/easydiscord.git",
+  "homepage": "git@github.com:n445/easydiscord.git",
   "authors": [
     {
       "name": "N445",
