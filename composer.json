@@ -15,7 +15,7 @@
     }
   ],
   "require": {
-    "eightpoints/guzzle-bundle": "^8.*"
+    "eightpoints/guzzle-bundle": "^8.1"
   },
   "autoload": {
     "psr-4": {
