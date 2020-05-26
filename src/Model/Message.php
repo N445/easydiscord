@@ -17,11 +17,6 @@ class Message
     private $embeds;
 
     /**
-     * @var Image|null
-     */
-    private $image;
-
-    /**
      * @return string
      */
     public function getUsername(): string
@@ -54,24 +49,6 @@ class Message
     public function setEmbeds($embeds)
     {
         $this->embeds = $embeds;
-        return $this;
-    }
-
-    /**
-     * @return Image|null
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * @param Image|null $image
-     * @return Message
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
         return $this;
     }
 }

@@ -40,24 +40,30 @@ class DiscordSender
 
         if ($message->getEmbeds()) {
             $body["embeds"] = array_map(function (Embed $embed) {
-                return [
+                $embed = [
                     "title"       => $embed->getTitle(),
                     "description" => $embed->getDescription(),
                     "color"       => $embed->getColor(),
-                    "footer"      => [
-                        "text" => $embed->getFooter()->getText(),
-                    ],
                 ];
-            }, $message->getEmbeds());
-        }
 
-        if ($message->getImage()) {
-            $body["image"] = [
-                "url"       => $message->getImage()->getUrl(),
-                "proxy_url" => $message->getImage()->getProxyUrl(),
-                "height"    => $message->getImage()->getHeight(),
-                "width"     => $message->getImage()->getWidth(),
-            ];
+                if ($embed->getFooter()) {
+                    $embed["footer"] = [
+                        "text" => $embed->getFooter()->getText(),
+                    ];
+                }
+
+                if ($embed->getImage()) {
+                    $embed["image"] = [
+                        "url"       => $embed->getImage()->getUrl(),
+                        "proxy_url" => $embed->getImage()->getProxyUrl(),
+                        "height"    => $embed->getImage()->getHeight(),
+                        "width"     => $embed->getImage()->getWidth(),
+                    ];
+                }
+
+                return $embed;
+
+            }, $message->getEmbeds());
         }
 
         $body = array_filter($body);

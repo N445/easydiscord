@@ -17,17 +17,23 @@ class Embed
      * @var string
      */
     private $description;
-    
+
     /**
      * @var integer
      */
     private $color = Colors::DEFAULT;
-    
+
     /**
-     * @var Footer
+     * @var Footer|null
      */
     private $footer;
-    
+
+    /**
+     * @var Image|null
+     */
+    private $image;
+
+
     /**
      * @return string
      */
@@ -35,7 +41,7 @@ class Embed
     {
         return $this->title;
     }
-    
+
     /**
      * @param string $title
      * @return Embed
@@ -71,7 +77,7 @@ class Embed
     {
         return $this->color;
     }
-    
+
     /**
      * @param int $color
      * @return Embed
@@ -81,22 +87,43 @@ class Embed
         $this->color = $color;
         return $this;
     }
-    
+
     /**
-     * @return Footer
+     * @return Footer|null
      */
     public function getFooter(): Footer
     {
         return $this->footer;
     }
-    
+
     /**
-     * @param Footer $footer
+     * @param Footer|null $footer
      * @return Embed
      */
-    public function setFooter(Footer $footer): Embed
+    public function setFooter($footer): Embed
     {
         $this->footer = $footer;
         return $this;
     }
+
+
+    /**
+     * @return Image|null
+     */
+    public function getImage(): Image
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param Image|null $image
+     * @return Embed
+     */
+    public function setImage($image): Embed
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+
 }
