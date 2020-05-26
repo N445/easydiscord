@@ -33,21 +33,35 @@ class DiscordSender
         $client = new Client([
             'base_uri' => 'https://discordapp.com',
         ]);
-        
+
         $body = [
             "username" => $message->getUsername(),
-            "embeds" => array_map(function (Embed $embed) {
+        ];
+
+        if ($message->getEmbeds()) {
+            $body["embeds"] = array_map(function (Embed $embed) {
                 return [
-                    "title" => $embed->getTitle(),
+                    "title"       => $embed->getTitle(),
                     "description" => $embed->getDescription(),
-                    "color" => $embed->getColor(),
-                    "footer" => [
+                    "color"       => $embed->getColor(),
+                    "footer"      => [
                         "text" => $embed->getFooter()->getText(),
                     ],
                 ];
-            }, $message->getEmbeds()),
-        ];
-        
+            }, $message->getEmbeds());
+        }
+
+        if ($message->getImage()) {
+            $body["image"] = [
+                "url"       => $message->getImage()->getUrl(),
+                "proxy_url" => $message->getImage()->getProxyUrl(),
+                "height"    => $message->getImage()->getHeight(),
+                "width"     => $message->getImage()->getWidth(),
+            ];
+        }
+
+        $body = array_filter($body);
+
         $client->post($this->url, [
             "json" => $body,
         ]);
