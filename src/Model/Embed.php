@@ -91,7 +91,7 @@ class Embed
     /**
      * @return Footer|null
      */
-    public function getFooter(): Footer
+    public function getFooter(): ?Footer
     {
         return $this->footer;
     }
@@ -110,7 +110,7 @@ class Embed
     /**
      * @return Image|null
      */
-    public function getImage(): Image
+    public function getImage(): ?Image
     {
         return $this->image;
     }
