@@ -2,7 +2,7 @@
 
 namespace N445\EasyDiscord\Model;
 
-class Image
+class Thumbnail
 {
     /**
      * @var string|null

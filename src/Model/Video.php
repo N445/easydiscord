@@ -2,7 +2,7 @@
 
 namespace N445\EasyDiscord\Model;
 
-class Image
+class Video
 {
     /**
      * @var string|null

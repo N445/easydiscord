@@ -12,11 +12,16 @@ class Embed
      * @var string
      */
     private $title;
-    
+
     /**
      * @var string
      */
     private $description;
+
+    /**
+     * @var string|null
+     */
+    private $url;
 
     /**
      * @var integer
@@ -32,6 +37,26 @@ class Embed
      * @var Image|null
      */
     private $image;
+
+    /**
+     * @var Thumbnail|null
+     */
+    private $thumbnail;
+
+    /**
+     * @var Video|null
+     */
+    private $video;
+
+    /**
+     * @var Author|null
+     */
+    private $author;
+
+    /**
+     * @var Field[]
+     */
+    private $fields=[];
 
 
     /**
@@ -59,7 +84,7 @@ class Embed
     {
         return $this->description;
     }
-    
+
     /**
      * @param string $description
      * @return Embed
@@ -69,7 +94,25 @@ class Embed
         $this->description = $description;
         return $this;
     }
-    
+
+    /**
+     * @return string|null
+     */
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string|null $url
+     * @return Embed
+     */
+    public function setUrl(?string $url): Embed
+    {
+        $this->url = $url;
+        return $this;
+    }
+
     /**
      * @return int
      */
@@ -125,5 +168,85 @@ class Embed
         return $this;
     }
 
+    /**
+     * @return Thumbnail|null
+     */
+    public function getThumbnail(): ?Thumbnail
+    {
+        return $this->thumbnail;
+    }
 
+    /**
+     * @param Thumbnail|null $thumbnail
+     * @return Embed
+     */
+    public function setThumbnail(?Thumbnail $thumbnail): Embed
+    {
+        $this->thumbnail = $thumbnail;
+        return $this;
+    }
+
+    /**
+     * @return Video|null
+     */
+    public function getVideo(): ?Video
+    {
+        return $this->video;
+    }
+
+    /**
+     * @param Video|null $video
+     * @return Embed
+     */
+    public function setVideo(?Video $video): Embed
+    {
+        $this->video = $video;
+        return $this;
+    }
+
+    /**
+     * @return Author|null
+     */
+    public function getAuthor(): ?Author
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param Author|null $author
+     * @return Embed
+     */
+    public function setAuthor(?Author $author): Embed
+    {
+        $this->author = $author;
+        return $this;
+    }
+
+    /**
+     * @return Field[]
+     */
+    public function getFields(): array
+    {
+        return $this->fields;
+    }
+
+    /**
+     * @param Field[] $fields
+     * @return Embed
+     */
+    public function setFields(array $fields): Embed
+    {
+        $this->fields = $fields;
+        return $this;
+    }
+
+    /**
+     * @param Field $field
+     * @return Embed
+     */
+    public function addField(Field $field): Embed
+    {
+        $this->fields[] = $field;
+        return $this;
+    }
 }
