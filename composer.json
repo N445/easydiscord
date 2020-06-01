@@ -16,7 +16,7 @@
   ],
   "require": {
     "eightpoints/guzzle-bundle": "^8.1",
-    "symfony/validator": "^5.2@dev"
+    "symfony/validator": "^5.2"
   },
   "autoload": {
     "psr-4": {
