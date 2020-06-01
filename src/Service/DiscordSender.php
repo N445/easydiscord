@@ -10,13 +10,14 @@ use N445\EasyDiscord\Model\Message;
 
 class DiscordSender
 {
-    const URL = '/api/webhooks/%s/%s';
-    
+    const BASE_URL = 'https://discordapp.com';
+    const URL      = '/api/webhooks/%s/%s';
+
     /**
      * @var string
      */
     private $url;
-    
+
     /**
      * @param string $id
      * @param string $token
@@ -31,7 +32,7 @@ class DiscordSender
     public function send(Message $message)
     {
         $client = new Client([
-            'base_uri' => 'https://discordapp.com',
+            'base_uri' => self::BASE_URL,
         ]);
 
         $body = [

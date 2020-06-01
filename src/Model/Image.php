@@ -12,11 +12,6 @@ class Image
     /**
      * @var string|null
      */
-    private $proxyUrl;
-
-    /**
-     * @var string|null
-     */
     private $height;
 
     /**
@@ -25,15 +20,15 @@ class Image
     private $width;
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
 
     /**
-     * @param string|null $url
+     * @param string $url
      * @return Image
      */
     public function setUrl($url)
@@ -45,25 +40,7 @@ class Image
     /**
      * @return string|null
      */
-    public function getProxyUrl()
-    {
-        return $this->proxyUrl;
-    }
-
-    /**
-     * @param string|null $proxyUrl
-     * @return Image
-     */
-    public function setProxyUrl($proxyUrl)
-    {
-        $this->proxyUrl = $proxyUrl;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getHeight()
+    public function getHeight(): ?string
     {
         return $this->height;
     }
@@ -81,7 +58,7 @@ class Image
     /**
      * @return string|null
      */
-    public function getWidth()
+    public function getWidth(): ?string
     {
         return $this->width;
     }

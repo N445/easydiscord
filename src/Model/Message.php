@@ -16,6 +16,11 @@ class Message
      */
     private $embeds;
 
+    public function __construct()
+    {
+        $this->embeds = [];
+    }
+
     /**
      * @return string
      */
@@ -49,6 +54,16 @@ class Message
     public function setEmbeds($embeds)
     {
         $this->embeds = $embeds;
+        return $this;
+    }
+
+    /**
+     * @param Embed|null $embed
+     * @return Message
+     */
+    public function addEmbed($embed)
+    {
+        $this->embeds[] = $embed;
         return $this;
     }
 }
