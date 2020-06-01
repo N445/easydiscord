@@ -5,6 +5,7 @@ use GuzzleHttp\Client;
 use N445\EasyDiscord\Model\Embed;
 use N445\EasyDiscord\Model\Field;
 use N445\EasyDiscord\Model\Message;
+use N445\EasyDiscord\Validator\EmbedValidator;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -40,16 +41,13 @@ class DiscordSender
 
     /**
      * DiscordSender constructor.
-     * @param ValidatorInterface $validator
      */
-    public function __construct(
-        ValidatorInterface $validator
-    )
+    public function __construct()
     {
         $this->client    = new Client([
             'base_uri' => self::BASE_URL,
         ]);
-        $this->validator = $validator;
+        $this->validator = new EmbedValidator();
     }
 
     /**
@@ -94,7 +92,7 @@ class DiscordSender
     {
         /** @var Embed $embed */
         foreach ($this->message->getEmbeds() as $embed) {
-            $this->validate($embed);
+            $this->validator->validate($embed);
             $embedArray = [
                 "title"       => $embed->getTitle(),
                 "description" => $embed->getDescription(),
@@ -122,7 +120,6 @@ class DiscordSender
         if (!$author = $embed->getAuthor()) {
             return;
         }
-        $this->validate($author);
         $embedArray["author"] = [
             "name"     => $author->getName(),
             "url"      => $author->getUrl(),
@@ -154,7 +151,6 @@ class DiscordSender
         if (!$footer = $embed->getFooter()) {
             return;
         }
-        $this->validate($footer);
         $embedArray["footer"] = [
             "text" => $footer->getText(),
         ];
@@ -170,7 +166,6 @@ class DiscordSender
         if (!$image = $embed->getImage()) {
             return;
         }
-        $this->validate($image);
         $embedArray["image"] = [
             "url" => $image->getUrl(),
         ];
@@ -186,7 +181,6 @@ class DiscordSender
         if (!$thumbnail = $embed->getThumbnail()) {
             return;
         }
-        $this->validate($thumbnail);
         $embedArray["thumbnail"] = [
             "url" => $thumbnail->getUrl(),
         ];
@@ -202,22 +196,8 @@ class DiscordSender
         if (!$video = $embed->getVideo()) {
             return;
         }
-        $this->validate($video);
         $embedArray["video"] = [
             "url" => $video->getUrl(),
         ];
-    }
-
-    /**
-     * @param $class
-     * @return \Exception
-     */
-    private function validate($class)
-    {
-        $errors = $this->validator->validate($class);
-
-        if (count($errors) > 0) {
-            return new \Exception((string)$errors);
-        }
     }
 }

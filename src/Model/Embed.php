@@ -4,25 +4,16 @@
 namespace N445\EasyDiscord\Model;
 
 use N445\EasyDiscord\Helper\Colors;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class Embed
 {
     /**
      * @var string
-     * @Assert\Length(
-     *      max = 256,
-     *      maxMessage = "Le titre ne doit pas dépasser {{ limit }} caractères"
-     * )
      */
     private $title;
 
     /**
      * @var string
-     * @Assert\Length(
-     *      max = 2048,
-     *      maxMessage = "Le titre ne doit pas dépasser {{ limit }} caractères"
-     * )
      */
     private $description;
 
@@ -63,10 +54,6 @@ class Embed
 
     /**
      * @var Field[]
-     * @Assert\Count(
-     *      max = 25,
-     *      maxMessage = "{{ limit }} fields maximum"
-     * )
      */
     private $fields=[];
 

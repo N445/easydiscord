@@ -1,16 +1,11 @@
 <?php
 
 namespace N445\EasyDiscord\Model;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class Author
 {
     /**
      * @var string
-     * @Assert\Length(
-     *      max = 256,
-     *      maxMessage = "Le nom ne doit pas dépasser {{ limit }} caractères"
-     * )
      */
     private $name;
 

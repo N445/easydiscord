@@ -1,25 +1,16 @@
 <?php
 
 namespace N445\EasyDiscord\Model;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class Field
 {
     /**
      * @var string
-     * @Assert\Length(
-     *      max = 256,
-     *      maxMessage = "Le nom ne doit pas dépasser {{ limit }} caractères"
-     * )
      */
     private $name;
 
     /**
      * @var string
-     * @Assert\Length(
-     *      max = 1024,
-     *      maxMessage = "La valeur ne doit pas dépasser {{ limit }} caractères"
-     * )
      */
     private $value;
 
