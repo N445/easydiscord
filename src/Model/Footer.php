@@ -2,7 +2,7 @@
 
 
 namespace N445\EasyDiscord\Model;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 class Footer
 {
@@ -10,6 +10,10 @@ class Footer
     
     /**
      * @return mixed
+     * @Assert\Length(
+     *      max = 2048,
+     *      maxMessage = "Le text ne doit pas dépasser {{ limit }} caractères"
+     * )
      */
     public function getText()
     {

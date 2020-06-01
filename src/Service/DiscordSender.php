@@ -3,8 +3,9 @@ namespace N445\EasyDiscord\Service;
 
 use GuzzleHttp\Client;
 use N445\EasyDiscord\Model\Embed;
-use N445\EasyDiscord\Model\Message;
 use N445\EasyDiscord\Model\Field;
+use N445\EasyDiscord\Model\Message;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class DiscordSender
@@ -33,16 +34,33 @@ class DiscordSender
     private $message;
 
     /**
-     * DiscordSender constructor.
-     * @param string $id
-     * @param string $token
+     * @var ValidatorInterface
      */
-    public function __construct(string $id, string $token)
+    private $validator;
+
+    /**
+     * DiscordSender constructor.
+     * @param ValidatorInterface $validator
+     */
+    public function __construct(
+        ValidatorInterface $validator
+    )
     {
-        $this->url    = sprintf(self::URL, $id, $token);
-        $this->client = new Client([
+        $this->client    = new Client([
             'base_uri' => self::BASE_URL,
         ]);
+        $this->validator = $validator;
+    }
+
+    /**
+     * @param string $id
+     * @param string $token
+     * @return $this
+     */
+    public function addIdToken(string $id, string $token):DiscordSender
+    {
+        $this->url       = sprintf(self::URL, $id, $token);
+        return $this;
     }
 
     /**
@@ -76,6 +94,7 @@ class DiscordSender
     {
         /** @var Embed $embed */
         foreach ($this->message->getEmbeds() as $embed) {
+            $this->validate($embed);
             $embedArray = [
                 "title"       => $embed->getTitle(),
                 "description" => $embed->getDescription(),
@@ -83,12 +102,12 @@ class DiscordSender
                 "color"       => $embed->getColor(),
             ];
 
+            $this->addAuthor($embed, $embedArray);
+            $this->addFields($embed, $embedArray);
             $this->addFooter($embed, $embedArray);
             $this->addImage($embed, $embedArray);
             $this->addThumbnail($embed, $embedArray);
             $this->addVideo($embed, $embedArray);
-            $this->addAuthor($embed, $embedArray);
-            $this->addFields($embed, $embedArray);
 
             $this->body["embeds"][] = $embedArray;
         }
@@ -98,74 +117,16 @@ class DiscordSender
      * @param Embed $embed
      * @param array $embedArray
      */
-    private function addFooter(Embed $embed, array &$embedArray)
-    {
-        if (!$embed->getFooter()) {
-            return;
-        }
-        $embedArray["footer"] = [
-            "text" => $embed->getFooter()->getText(),
-        ];
-
-    }
-
-    /**
-     * @param Embed $embed
-     * @param array $embedArray
-     */
-    private function addImage(Embed $embed, array &$embedArray)
-    {
-        if (!$embed->getImage()) {
-            return;
-        }
-        $embedArray["image"] = [
-            "url" => $embed->getImage()->getUrl(),
-        ];
-
-    }
-
-    /**
-     * @param Embed $embed
-     * @param array $embedArray
-     */
-    private function addThumbnail(Embed $embed, array &$embedArray)
-    {
-        if (!$embed->getThumbnail()) {
-            return;
-        }
-        $embedArray["thumbnail"] = [
-            "url" => $embed->getThumbnail()->getUrl(),
-        ];
-
-    }
-
-    /**
-     * @param Embed $embed
-     * @param array $embedArray
-     */
-    private function addVideo(Embed $embed, array &$embedArray)
-    {
-        if (!$embed->getVideo()) {
-            return;
-        }
-        $embedArray["video"] = [
-            "url" => $embed->getThumbnail()->getUrl(),
-        ];
-    }
-
-    /**
-     * @param Embed $embed
-     * @param array $embedArray
-     */
     private function addAuthor(Embed $embed, array &$embedArray)
     {
-        if (!$embed->getAuthor()) {
+        if (!$author = $embed->getAuthor()) {
             return;
         }
+        $this->validate($author);
         $embedArray["author"] = [
-            "name"     => $embed->getAuthor()->getName(),
-            "url"      => $embed->getAuthor()->getUrl(),
-            "icon_url" => $embed->getAuthor()->getIconUrl(),
+            "name"     => $author->getName(),
+            "url"      => $author->getUrl(),
+            "icon_url" => $author->getIconUrl(),
         ];
     }
 
@@ -182,5 +143,81 @@ class DiscordSender
                 "inline" => $field->isInline(),
             ];
         }, $embed->getFields());
+    }
+
+    /**
+     * @param Embed $embed
+     * @param array $embedArray
+     */
+    private function addFooter(Embed $embed, array &$embedArray)
+    {
+        if (!$footer = $embed->getFooter()) {
+            return;
+        }
+        $this->validate($footer);
+        $embedArray["footer"] = [
+            "text" => $footer->getText(),
+        ];
+
+    }
+
+    /**
+     * @param Embed $embed
+     * @param array $embedArray
+     */
+    private function addImage(Embed $embed, array &$embedArray)
+    {
+        if (!$image = $embed->getImage()) {
+            return;
+        }
+        $this->validate($image);
+        $embedArray["image"] = [
+            "url" => $image->getUrl(),
+        ];
+
+    }
+
+    /**
+     * @param Embed $embed
+     * @param array $embedArray
+     */
+    private function addThumbnail(Embed $embed, array &$embedArray)
+    {
+        if (!$thumbnail = $embed->getThumbnail()) {
+            return;
+        }
+        $this->validate($thumbnail);
+        $embedArray["thumbnail"] = [
+            "url" => $thumbnail->getUrl(),
+        ];
+
+    }
+
+    /**
+     * @param Embed $embed
+     * @param array $embedArray
+     */
+    private function addVideo(Embed $embed, array &$embedArray)
+    {
+        if (!$video = $embed->getVideo()) {
+            return;
+        }
+        $this->validate($video);
+        $embedArray["video"] = [
+            "url" => $video->getUrl(),
+        ];
+    }
+
+    /**
+     * @param $class
+     * @return \Exception
+     */
+    private function validate($class)
+    {
+        $errors = $this->validator->validate($class);
+
+        if (count($errors) > 0) {
+            return new \Exception((string)$errors);
+        }
     }
 }
