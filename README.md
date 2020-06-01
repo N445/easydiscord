@@ -31,7 +31,7 @@ class AppKernel extends Kernel
 }
 ```
 
-### Usage
+### Step 3: Usage
 
 Only send embed message
 
