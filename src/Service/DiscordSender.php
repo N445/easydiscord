@@ -69,10 +69,7 @@ class DiscordSender
         $this->message = $message;
 
         $this->initBody();
-
-        if ($message->getEmbeds()) {
-            $this->setEmbed();
-        }
+        $this->setEmbed();
 
         $this->body = array_filter($this->body);
 
@@ -84,7 +81,11 @@ class DiscordSender
     private function initBody()
     {
         $this->body = [
-            "username" => $this->message->getUsername(),
+            "username"   => $this->message->getUsername(),
+            "content"    => $this->message->getContent(),
+            "avatar_url" => $this->message->getAvatarUrl(),
+            "tts"        => $this->message->getTts(),
+            "file"       => $this->message->getFile(),
         ];
     }
 

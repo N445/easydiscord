@@ -10,12 +10,12 @@ class Author
     private $name;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $url;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $iconUrl;
 
@@ -38,38 +38,40 @@ class Author
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getUrl(): string
+    public function getUrl(): ?string
     {
         return $this->url;
     }
 
     /**
-     * @param string $url
+     * @param string|null $url
      * @return Author
      */
-    public function setUrl(string $url): Author
+    public function setUrl(?string $url): Author
     {
         $this->url = $url;
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getIconUrl(): string
+    public function getIconUrl(): ?string
     {
         return $this->iconUrl;
     }
 
     /**
-     * @param string $iconUrl
+     * @param string|null $iconUrl
      * @return Author
      */
-    public function setIconUrl(string $iconUrl): Author
+    public function setIconUrl(?string $iconUrl): Author
     {
         $this->iconUrl = $iconUrl;
         return $this;
     }
+
+
 }
