@@ -42,12 +42,13 @@ class DiscordSender
     /**
      * DiscordSender constructor.
      */
-    public function __construct()
+    public function __construct(string $id, string $token)
     {
         $this->client    = new Client([
             'base_uri' => self::BASE_URL,
         ]);
         $this->validator = new EmbedValidator();
+        $this->url       = sprintf(self::URL, $id, $token);
     }
 
     /**
